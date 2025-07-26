@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منوی کافه</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Vazirmatn -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Style for the active category button */
+        .category-btn.active {
+            background-color: #c8a27c;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        /* Simple fade-in animation for menu items */
+        .menu-item {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Custom scrollbar for better aesthetics */
+        .category-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        .category-container::-webkit-scrollbar-thumb {
+            background-color: #c8a27c;
+            border-radius: 20px;
+        }
+        .category-container::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#c8a27c]">کافه رویا</h1>
+            <p class="text-gray-400 mt-2">طعم واقعی قهوه و آرامش</p>
+        </header>
+
+        <!-- Category Navigation -->
+        <nav class="mb-8 sticky top-0 bg-gray-900 py-4 z-10">
+            <div id="category-buttons" class="category-container flex justify-start md:justify-center items-center space-x-2 space-x-reverse overflow-x-auto pb-2">
+                <!-- Category buttons will be inserted here by JavaScript -->
+            </div>
+        </nav>
+
+        <!-- Menu Items Grid -->
+        <main id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <!-- Menu items will be inserted here by JavaScript -->
+        </main>
+    </div>
+
+<script>
+        // --- DATA ---
+        // You can easily edit your menu here.
+        // Just add or remove categories and items.
+        const menuData = [
+            {
+                category: "نوشیدنی‌های گرم",
+                items: [
+                    { name: "اسپرسو", description: "یک شات اسپرسو خالص و غلیظ", price: "۴۵,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=اسپرسو" },
+                    { name: "امریکانو", description: "اسپرسو رقیق شده با آب داغ", price: "۵۰,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=امریکانو" },
+                    { name: "کافه لاته", description: "ترکیب اسپرسو و شیر بخار داده شده", price: "۶۵,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=کافه+لاته" },
+                    { name: "کاپوچینو", description: "اسپرسو، شیر بخار داده شده و فوم شیر", price: "۶۵,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=کاپوچینو" },
+                    { name: "موکا", description: "ترکیبی دلنشین از اسپرسو، شکلات و شیر", price: "۷۵,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=موکا" },
+                    { name: "چای ماسالا", description: "چای معطر هندی با ادویه‌های گرم", price: "۶۰,۰۰۰", image: "https://placehold.co/400x400/1a1a1a/c8a27c?text=چای+ماسالا" }
+                ]
+            },
+            {
+                category: "نوشیدنی‌های سرد",
+                items: [
+                    { name: "آیس امریکانو", description: "ترکیب اسپرسو و آب سرد همراه با یخ", price: "۵۵,۰۰۰", image: "https://placehold.co/400x400/2a2a2a/c8a27c?text=آیس+امریکانو" },
+                    { name: "کلد برو", description: "قهوه دم‌آوری شده با آب سرد در زمان طولانی", price: "۷۰,۰۰۰", image: "https://placehold.co/400x400/2a2a2a/c8a27c?text=کلد+برو" },
+                    { name: "فراپه شکلات", description: "نوشیدنی خنک بر پایه یخ و شکلات", price: "۸۰,۰۰۰", image: "https://placehold.co/400x400/2a2a2a/c8a27c?text=فراپه" },
+                    { name: "لیموناد", description: "ترش و خنک، تهیه شده از لیموی تازه", price: "۵۵,۰۰۰", image: "https://placehold.co/400x400/2a2a2a/c8a27c?text=لیموناد" },
+                    { name: "موهیتو", description: "ترکیب نعنای تازه، لیمو و سودا", price: "۷۰,۰۰۰", image: "https://placehold.co/400x400/2a2a2a/c8a27c?text=موهیتو" },
+                ]
+            },
+            {
+                category: "کیک و دسر",
+                items: [
+                    { name: "چیزکیک نیویورکی", description: "چیزکیک کلاسیک با سس میوه دلخواه", price: "۹۵,۰۰۰", image: "https://placehold.co/400x400/3a3a3a/c8a27c?text=چیزکیک" },
+                    { name: "کیک شکلاتی", description: "کیک غنی و مرطوب با گاناش شکلات", price: "۹۰,۰۰۰", image: "https://placehold.co/400x400/3a3a3a/c8a27c?text=کیک+شکلاتی" },
+                    { name: "کیک هویج", description: "همراه با گردو و کرم پنیری مخصوص", price: "۸۵,۰۰۰", image: "https://placehold.co/400x400/3a3a3a/c8a27c?text=کیک+هویج" },
+                    { name: "براونی با بستنی", description: "براونی داغ شکلاتی همراه با یک اسکوپ بستنی وانیلی", price: "۱۱۰,۰۰۰", image: "https://placehold.co/400x400/3a3a3a/c8a27c?text=براونی" },
+                ]
+            },
+            {
+                category: "غذا و میان‌وعده",
+                items: [
+                    { name: "ساندویچ مرغ", description: "فیله مرغ گریل شده، کاهو، گوجه و سس مخصوص", price: "۱۳۰,۰۰۰", image: "https://placehold.co/400x400/4a4a4a/c8a27c?text=ساندویچ+مرغ" },
+                    { name: "پنینی استیک", description: "گوشت استیک طعم‌دار شده همراه با پنیر و قارچ", price: "۱۸۰,۰۰۰", image: "https://placehold.co/400x400/4a4a4a/c8a27c?text=پنینی+استیک" },
+                    { name: "سیب‌زمینی سرخ‌کرده", description: "خلال‌های سیب‌زمینی سرخ‌شده همراه با سس مخصوص", price: "۷۵,۰۰۰", image: "https://placehold.co/400x400/4a4a4a/c8a27c?text=سیب+زمینی" },
+                ]
+            }
+        ];
+
+        // --- DOM Elements ---
+        const categoryButtonsContainer = document.getElementById('category-buttons');
+        const menuGrid = document.getElementById('menu-grid');
+
+        // --- Functions ---
+
+
+        function displayCategory(categoryName) {
+            // Find the category object from the data
+            const category = menuData.find(cat => cat.category === categoryName);
+            if (!category) return;
+
+            // Clear the existing menu items
+            menuGrid.innerHTML = '';
+
+            // Create and append a card for each item in the category
+            category.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-item bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1a1a1a/c8a27c?text=Image+Not+Found';">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-white">${item.name}</h3>
+                        <p class="text-gray-400 text-sm mt-1">${item.description}</p>
+                        <div class="mt-4 text-lg font-semibold text-[#c8a27c]">
+                            <span>${item.price} تومان</span>
+                        </div>
+                    </div>
+                `;
+                menuGrid.appendChild(card);
+            });
+
+            // Update active state for category buttons
+            updateActiveButton(categoryName);
+        }
+        
+
+        function updateActiveButton(activeCategoryName) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(button => {
+                if (button.textContent === activeCategoryName) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+
+        // --- Initial Load ---
+
+        // Create category buttons on page load
+        menuData.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'category-btn px-4 py-2 whitespace-nowrap rounded-full text-gray-300 bg-gray-800 hover:bg-[#c8a27c] hover:text-gray-900 transition-colors duration-300';
+            button.textContent = category.category;
+            button.addEventListener('click', () => displayCategory(category.category));
+            categoryButtonsContainer.appendChild(button);
+        });
+
+        // Display the first category by default when the page loads
+        if (menuData.length > 0) {
+            displayCategory(menuData[0].category);
+        }
+
+    </script>
+</body>
+</html>
