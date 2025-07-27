@@ -13,16 +13,19 @@
             font-family: 'Vazirmatn', sans-serif;
             scroll-behavior: smooth;
         }
-        /* Style for the active category button */
+
+        /* Active category button */
         .category-btn.active {
-            background-color: #c8a27c;
-            color: #1a1a1a;
+            background-color: #FFFFFF;
+            color: #2F4F4F;
             font-weight: 700;
         }
-        /* Simple fade-in animation for menu items */
+
+        /* Fade-in animation */
         .menu-item {
             animation: fadeIn 0.5s ease-in-out;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -33,46 +36,44 @@
                 transform: translateY(0);
             }
         }
-        /* Custom scrollbar for better aesthetics */
+
+        /* Custom scrollbar */
         .category-container::-webkit-scrollbar {
             height: 4px;
         }
         .category-container::-webkit-scrollbar-thumb {
-            background-color: #c8a27c;
+            background-color: #FFFFFF;
             border-radius: 20px;
         }
         .category-container::-webkit-scrollbar-track {
-            background: #2d2d2d;
+            background: #3E3E3E;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-[#2F4F4F] text-white">
 
     <div class="container mx-auto p-4 md:p-8">
         <!-- Header -->
         <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#c8a27c]">کافه رویا</h1>
-            <p class="text-gray-400 mt-2">طعم واقعی قهوه و آرامش</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-white">کافه رویا</h1>
+            <p class="text-[#FFFFFF] mt-2 opacity-80">طعم واقعی قهوه و آرامش</p>
         </header>
 
         <!-- Category Navigation -->
-        <nav class="mb-8 sticky top-0 bg-gray-900 py-4 z-10">
+        <nav class="mb-8 sticky top-0 bg-[#2F4F4F] py-4 z-10">
             <div id="category-buttons" class="category-container flex justify-start md:justify-center items-center space-x-2 space-x-reverse overflow-x-auto pb-2">
-                <!-- Category buttons will be inserted here by JavaScript -->
+                <!-- Category buttons will be inserted here -->
             </div>
         </nav>
 
         <!-- Menu Items Grid -->
         <main id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            <!-- Menu items will be inserted here by JavaScript -->
+            <!-- Menu items will be inserted here -->
         </main>
     </div>
 
 <script>
-        // --- DATA ---
-        // You can easily edit your menu here.
-        // Just add or remove categories and items.
-        const menuData = [
+    const menuData = [
             {
                 category: "نوشیدنی‌های گرم",
                 items: [
@@ -111,73 +112,61 @@
                     { name: "سیب‌زمینی سرخ‌کرده", description: "خلال‌های سیب‌زمینی سرخ‌شده همراه با سس مخصوص", price: "۷۵,۰۰۰", image: "https://placehold.co/400x400/4a4a4a/c8a27c?text=سیب+زمینی" },
                 ]
             }
-        ];
-
-        // --- DOM Elements ---
-        const categoryButtonsContainer = document.getElementById('category-buttons');
-        const menuGrid = document.getElementById('menu-grid');
-
-        // --- Functions ---
-
-
-        function displayCategory(categoryName) {
-            // Find the category object from the data
-            const category = menuData.find(cat => cat.category === categoryName);
-            if (!category) return;
-
-            // Clear the existing menu items
-            menuGrid.innerHTML = '';
-
-            // Create and append a card for each item in the category
-            category.items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'menu-item bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300';
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/1a1a1a/c8a27c?text=Image+Not+Found';">
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold text-white">${item.name}</h3>
-                        <p class="text-gray-400 text-sm mt-1">${item.description}</p>
-                        <div class="mt-4 text-lg font-semibold text-[#c8a27c]">
-                            <span>${item.price} تومان</span>
-                        </div>
-                    </div>
-                `;
-                menuGrid.appendChild(card);
-            });
-
-            // Update active state for category buttons
-            updateActiveButton(categoryName);
-        }
         
+        // same menuData as before...
+    ];
 
-        function updateActiveButton(activeCategoryName) {
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(button => {
-                if (button.textContent === activeCategoryName) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
-        }
+    const categoryButtonsContainer = document.getElementById('category-buttons');
+    const menuGrid = document.getElementById('menu-grid');
 
+    function displayCategory(categoryName) {
+        const category = menuData.find(cat => cat.category === categoryName);
+        if (!category) return;
 
-        // --- Initial Load ---
+        menuGrid.innerHTML = '';
 
-        // Create category buttons on page load
-        menuData.forEach(category => {
-            const button = document.createElement('button');
-            button.className = 'category-btn px-4 py-2 whitespace-nowrap rounded-full text-gray-300 bg-gray-800 hover:bg-[#c8a27c] hover:text-gray-900 transition-colors duration-300';
-            button.textContent = category.category;
-            button.addEventListener('click', () => displayCategory(category.category));
-            categoryButtonsContainer.appendChild(button);
+        category.items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'menu-item bg-[#3E3E3E] rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300';
+            card.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x400/2f4f4f/ffffff?text=Not+Found';">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-white">${item.name}</h3>
+                    <p class="text-white text-sm mt-1 opacity-70">${item.description}</p>
+                    <div class="mt-4 text-lg font-semibold text-white">
+                        <span>${item.price} تومان</span>
+                    </div>
+                </div>
+            `;
+            menuGrid.appendChild(card);
         });
 
-        // Display the first category by default when the page loads
-        if (menuData.length > 0) {
-            displayCategory(menuData[0].category);
-        }
+        updateActiveButton(categoryName);
+    }
 
-    </script>
+    function updateActiveButton(activeCategoryName) {
+        const buttons = document.querySelectorAll('.category-btn');
+        buttons.forEach(button => {
+            if (button.textContent === activeCategoryName) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    // Initial Load
+    menuData.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'category-btn px-4 py-2 whitespace-nowrap rounded-full text-white bg-[#3E3E3E] hover:bg-white hover:text-[#2F4F4F] transition-colors duration-300';
+        button.textContent = category.category;
+        button.addEventListener('click', () => displayCategory(category.category));
+        categoryButtonsContainer.appendChild(button);
+    });
+
+    if (menuData.length > 0) {
+        displayCategory(menuData[0].category);
+    }
+</script>
 </body>
 </html>
